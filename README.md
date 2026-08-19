@@ -17,7 +17,7 @@ It produces a configured conductor package that bundles the default runtime conf
 
 Phenix uses a three-repo architecture:
 
-1. **phenix-agent-harness** — The Rust conductor binary (runtime)
+1. **phenix-conductor** — The Rust conductor binary (runtime)
 2. **phenix-harness** (this repo) — Configuration and skills
 3. **phenix-nvim** — Neovim frontend (UI only, no config)
 
