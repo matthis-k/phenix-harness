@@ -1,30 +1,43 @@
 ---
 name: grilling
-description: Stress-test a plan, decision, or idea through structured interview. Use when the user wants to pressure-test thinking before acting.
+description: "Resolve ambiguous or risky product, architecture, or implementation decisions through evidence-backed questioning. Use when the user asks to grill, pressure-test, clarify, stress-test, challenge assumptions, or when implementation is blocked by unresolved choices. Skip when intent and acceptance criteria are already settled."
 ---
 
-Interview the user until every decision is settled. Map the conversation as a **design tree**: each decision branches into the decisions that depend on it.
+Resolve decisions, not facts the environment can answer.
 
-## Rounds
+## Process
 
-Work the tree in rounds. The **frontier** is every decision whose prerequisites are already settled. These are the questions you can ask now. Ask the whole frontier in one round. Number each question and give your recommended answer. Wait for the user's answers before the next round.
-
-Each round, the user's answers reshape the tree. Settled decisions push the frontier outward and unblock the next layer. Recompute the frontier and ask again. A question whose answer depends on another open question belongs to a later round.
+1. Recover settled context first: objective, prior decisions, code, tests, docs, and current behavior.
+2. Build a **decision graph**. An edge means one decision depends on another.
+3. Compute the current **frontier**: unresolved decisions whose prerequisites are settled.
+4. Resolve environmental facts yourself. Ask the user only for choices that require judgment, preference, or product intent.
+5. Ask the whole frontier in one round. Number every question. Give a recommended answer and the consequence of choosing differently when material.
+6. Apply the answers, update canonical vocabulary, recompute the frontier, repeat.
 
 ## Question format
 
-Each question follows this structure:
+```text
+**Q<number>** - **<decision>**: <question and relevant options>
 
+Recommendation: <answer>
+Reason: <why this best fits current evidence>
 ```
-**Q<number>** - **<title>**: <body, may include multiple choices>
 
-Recommendation: <your recommended answer>
-```
+Keep dependent questions out of the round until their prerequisites settle.
 
-## Fact-finding
+## Evidence
 
-Finding facts is your job, never the user's. When a frontier question needs a fact from the environment, look it up in the codebase, tests, or documentation. Don't block the round on it. Only the questions downstream of the lookup wait. Ask the rest of the frontier now. The decisions are the user's.
+Inspect the repository, tests, history, documentation, and authoritative external sources when needed. Separate:
+
+- **fact**: directly established by evidence;
+- **decision**: chosen by the user or an already authoritative artifact;
+- **inference**: conclusion from facts;
+- **unknown**: missing evidence that does not require user preference.
+
+Do not turn an unknown fact into a user question.
 
 ## Completion
 
-The session is done when the frontier is empty. Every branch visited, nothing left silently assumed. Do not act on the decisions until the user confirms shared understanding.
+Stop when no unresolved decision can materially change scope, semantics, interfaces, acceptance criteria, or migration strategy. Produce a compact handoff of settled decisions, canonical terms, acceptance implications, and remaining factual unknowns.
+
+Do not implement unless the user explicitly asks to continue into implementation.
