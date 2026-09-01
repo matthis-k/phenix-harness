@@ -9,8 +9,8 @@ Reconstruct state from durable evidence and the current environment. Do not rest
 
 1. Identify the exact assigned objective, PR, issue, or plan. Keep that scope fixed.
 2. Recover settled decisions, acceptance criteria, plan progress, prior attempts, failure summaries, and verification evidence when available.
-3. Inspect the current branch/worktree, diff, commits, tests, CI, review feedback, and relevant repository state.
-4. Compare durable records with the current source state. Current source wins for what exists now; durable decisions and objectives remain authoritative for intended semantics.
+3. Inspect the current branch/worktree, diff, commits, tests, exact-head CI, review feedback, and relevant repository state.
+4. Compare durable records with the current source and CI state. Current evidence wins for what exists now; durable decisions and objectives remain authoritative for intended semantics.
 5. Separate confirmed completed work from attempted, stale, invalidated, or merely claimed work.
 
 ## Find the frontier
@@ -20,8 +20,10 @@ Determine:
 - last confirmed completed outcome;
 - current incomplete acceptance criteria or plan steps;
 - active blocker or failure cause;
-- evidence invalidated by later changes;
+- evidence invalidated by later source or CI changes;
 - smallest next settled action.
+
+A fresh required CI failure on the exact current head is the frontier until it is explained or repaired. It outranks queued implementation steps, pending executor requests, and stale handoff blockers. Diagnose the failing job before resuming lower-priority work.
 
 Do not redo completed work unless current evidence shows it is invalid.
 
@@ -29,7 +31,7 @@ Do not redo completed work unless current evidence shows it is invalid.
 
 Route by the recovered frontier:
 
-- missing facts -> `investigate`;
+- failed CI or missing failure facts -> `investigate`;
 - unresolved user choice -> `grilling`;
 - unresolved structural contract -> `architect`;
 - missing decomposition -> `plan`;
@@ -42,4 +44,4 @@ When the assignment is a PR or objective, continue that same assignment only. Do
 
 ## Handoff
 
-Before acting, be able to state the recovered objective, confirmed state, remaining frontier, and next action in compact form. If records disagree, resolve the disagreement from authoritative evidence instead of guessing.
+Before acting, be able to state the recovered objective, confirmed state, remaining frontier, exact-head CI state, and next action in compact form. Refresh any handoff claim such as "CI in progress", "green", or a named blocker when newer CI evidence exists. If records disagree, resolve the disagreement from authoritative evidence instead of guessing.
