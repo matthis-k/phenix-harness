@@ -26,8 +26,14 @@ A checklist tracks progress; it does not redefine the objective. Continue throug
 
 When a new product or architecture decision appears, stop that branch and route the decision to `grilling` or `architect`. Continue independent settled work when possible.
 
-## Completion
+## Completion loop
 
-Before claiming completion, load `verify` and verify the exact resulting source state against the objective and acceptance criteria. For high-risk or structurally significant changes, use `interrogate` before final verification.
+1. Run the repository's maintenance flake command against the exact candidate revision.
+2. If maintenance fails, repair the failure and rerun it. Maintenance is the deterministic gate.
+3. After maintenance passes, invoke an independent read-only verifier with fresh context. Give it the objective/spec, base and head revisions, diff, repository/docs, and exact maintenance result. Do not give it worker reasoning or self-review.
+4. If the verifier returns blocking findings, treat them as implementation input. Repair them, rerun maintenance, then invoke a fresh verifier again.
+5. Complete only when maintenance passes and the independent verifier passes for the same candidate revision.
 
-Return what changed, evidence, and any concrete blocker. Never describe partially implemented scope as complete.
+For high-risk or structurally significant changes, use `interrogate` before the completion loop.
+
+Return what changed, decisive evidence, and any concrete blocker. Never describe partially implemented scope as complete.
