@@ -43,7 +43,7 @@ let
         "Challenge engineering quality, architecture, and evidence independently without editing the codebase.";
     verifier =
       descriptor "agent" "agent.verifier"
-        "Verify conformance to requested behavior and acceptance evidence independently without editing the codebase.";
+        "Independently audit a maintenance-passing candidate against its request, specification, implementation, tests, and relevant documentation without editing the codebase.";
     finalizer =
       descriptor "agent" "agent.finalizer"
         "Synthesize established evidence without inventing new findings or editing implementation files.";
@@ -74,9 +74,8 @@ let
 
   orchestrations = [
     (orchestration "orchestration.implement" "Phenix implementation" [
-      (node "planner" "Produce the minimum executable plan appropriate to the requested change")
-      (node "implementer" "Apply the plan using existing abstractions and keep the change bounded")
-      (node "verifier" "Independently verify requested behavior, deterministic checks, and relevant regressions")
+      (node "implementer" "Implement the complete settled objective and drive the repository maintenance flake command to a pass")
+      (node "verifier" "Start from fresh evidence after maintenance passes; map every requirement to code and tests, audit relevant docs for stale or contradictory references, and return only evidence-backed findings or pass")
     ])
 
     (orchestration "orchestration.qa" "Phenix QA" qaReviewNodes)
@@ -244,7 +243,7 @@ let
     architect = target "openai-codex" "gpt-5.6-terra" "high";
     implementer = target "opencode-go" "qwen3.7-plus" "medium";
     tester = target "opencode-go" "deepseek-v4-flash" "medium";
-    verifier = target "openai-codex" "gpt-5.6-terra" "high";
+    verifier = target "openai-codex" "gpt-5.6-luna" "medium";
     critic = target "openai-codex" "gpt-5.6-terra" "high";
     finalizer = target "opencode-go" "qwen3.7-plus" "medium";
     qa_synthesizer = target "openai-codex" "gpt-5.6-terra" "high";
@@ -258,7 +257,7 @@ let
     architect = target "openai-api" "gpt-5.6-terra" "high";
     implementer = target "openai-api" "gpt-5.6-sol" "medium";
     tester = target "openai-api" "gpt-5.6-luna" "medium";
-    verifier = target "openai-api" "gpt-5.6-terra" "high";
+    verifier = target "openai-api" "gpt-5.6-luna" "medium";
     critic = target "openai-api" "gpt-5.6-terra" "high";
     finalizer = target "openai-api" "gpt-5.6-sol" "medium";
     qa_synthesizer = target "openai-api" "gpt-5.6-terra" "high";
@@ -272,7 +271,7 @@ let
     architect = target "opencode-go" "qwen3.7-plus" "high";
     implementer = target "opencode-go" "qwen3.7-plus" "medium";
     tester = target "opencode-go" "mimo-v2.5" "medium";
-    verifier = target "opencode-go" "qwen3.7-plus" "high";
+    verifier = target "opencode-go" "mimo-v2.5" "medium";
     critic = target "opencode-go" "deepseek-v4-flash" "high";
     finalizer = target "opencode-go" "qwen3.7-plus" "medium";
     qa_synthesizer = target "opencode-go" "qwen3.7-plus" "high";
@@ -286,7 +285,7 @@ let
     architect = target "openai-codex" "gpt-5.6-terra" "high";
     implementer = target "openai-codex" "gpt-5.6-sol" "medium";
     tester = target "openai-codex" "gpt-5.6-luna" "medium";
-    verifier = target "openai-codex" "gpt-5.6-terra" "high";
+    verifier = target "openai-codex" "gpt-5.6-luna" "medium";
     critic = target "openai-codex" "gpt-5.6-terra" "high";
     finalizer = target "openai-codex" "gpt-5.6-sol" "medium";
     qa_synthesizer = target "openai-codex" "gpt-5.6-terra" "high";
