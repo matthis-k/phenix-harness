@@ -16,8 +16,10 @@ Integrate the exact assigned change. Shipping does not broaden scope.
 1. Ensure substantive validation runs against the actual head. If draft state suppresses required CI, mark actively worked PRs ready before relying on CI results.
 2. Rebase or update onto the intended base when required. Re-verify evidence invalidated by the new source state.
 3. Run or inspect all required CI jobs. Treat skipped, cancelled, action-required, or missing jobs according to the repository's actual policy; do not call them green by omission.
-4. Resolve review findings inside the assigned scope. Route implementation changes through `implement` and rerun `verify` afterward.
-5. Keep the PR description current with dependencies, completed scope, and decisive validation evidence.
+4. If CI waits for manual approval, use the wait for a completion audit. Re-read the assigned objective, DPR/spec/checklist, current tree, diff, commits, and tests. Continue any missing semantic work, runtime behavior, cases, tests, proof, or required cleanup. Repeat the audit after each change.
+5. Treat approval-wait CI as delayed evidence, not completion. Stop for approval only when the audit finds no productive in-scope work and external approval or CI is the only remaining gate.
+6. Resolve review findings inside the assigned scope. Route implementation changes through `implement` and rerun `verify` afterward.
+7. Keep the PR description current with dependencies, completed scope, and decisive validation evidence.
 
 ## Merge gate
 
